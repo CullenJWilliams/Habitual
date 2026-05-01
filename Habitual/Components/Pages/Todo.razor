@@ -10,6 +10,7 @@
         <li>
            <input type="checkbox" @bind="todo.Completed" />
            <input @bind="@todo.Title" />
+           <p @bind="@todo.CompletedOn" >@todo.CompletedOn</p>
         </li>
     }
 </ul>
@@ -27,6 +28,11 @@
             todos.Add(new TodoItem { Title = newTodo });
             newTodo = string.Empty;
         }
+    }
+
+    private void CompleteTodo(TodoItem todo)
+    {
+
     }
 
 }
