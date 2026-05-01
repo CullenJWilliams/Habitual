@@ -1,7 +1,9 @@
-public class TodoList
+namespace Habitual
 {
+    public class TodoList
+    {
 
-    public List<TodoItem> Items {get; set;} = [];
-    public string? Title {get;set;}
-    public bool Completed {get;set;}
+        public List<TodoItem> Items { get; set; } = [];
+        public string? Title { get; set; }
+    }
 }

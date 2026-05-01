@@ -1,20 +1,23 @@
-public class TodoItem
+namespace Habitual
 {
-    public string? Title { get; set; }
-    public bool Completed
+    public class TodoItem
     {
-        get
+        public string? Title { get; set; }
+        public bool Completed
         {
-            return CompletedOn <= DateTime.Now;
+            get
+            {
+                return CompletedOn <= DateTime.Now;
+            }
+            set
+            {
+                if (CompletedOn is null)
+                    CompletedOn = DateTime.Now;
+                else
+                    CompletedOn = null;
+            }
         }
-        set
-        {
-            if (CompletedOn is null)
-                CompletedOn = DateTime.Now;
-            else
-                CompletedOn = null;
-        }
-    }
 
-    public DateTime? CompletedOn { get; set; }
+        public DateTime? CompletedOn { get; set; }
+    }
 }

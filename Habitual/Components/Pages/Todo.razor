@@ -2,37 +2,47 @@
 @rendermode InteractiveServer
 
 <PageTitle>Todo</PageTitle>
-<h1>Todovudu (@todos.Count(todo=> !todo.Completed))</h1>
+<h1>Todo</h1>
 
 <ul>
-    @foreach (var todo in todos)
+    @foreach (var todoList in todoLists)
     {
-        <li>
-           <input type="checkbox" @bind="todo.Completed" />
-           <input @bind="@todo.Title" />
-           <p @bind="@todo.CompletedOn" >@todo.CompletedOn</p>
+        <li> @todoList.Key
+            <ul>
+                @foreach (var todo in todoList.Value.Items)
+                {
+                    <li>
+                        <input type="checkbox" @bind="todo.Completed" />
+                        <input @bind="@todo.Title" />
+                        @todo.CompletedOn
+                    </li>
+                }
+            </ul>
         </li>
     }
 </ul>
-<input placeholder="something to do" @bind="newTodo"/>
+<input placeholder="something to do" @bind="newTodo" />
+<input placeholder="the list" @bind="selectedListName" />
 <button @onclick="AddTodo">Add</button>
 
 @code {
     private string? newTodo;
-    private List<TodoItem> todos = [];
+    private string selectedListName = string.Empty;
+    private static ListProvider listProvider = ListProvider.GetListProvider();
+
+    private  Dictionary<string, TodoList> todoLists = listProvider.GetAllLists();
 
     private void AddTodo()
     {
         if (!string.IsNullOrWhiteSpace(newTodo))
         {
-            todos.Add(new TodoItem { Title = newTodo });
+            var list = listProvider.GetList(selectedListName);
+            list.Items.Add(new TodoItem { Title = newTodo });
             newTodo = string.Empty;
         }
     }
-
-    private void CompleteTodo(TodoItem todo)
-    {
-
-    }
+    // TODO create new list
+    // TODO better list selection
+    // TODO data retention
 
 }
