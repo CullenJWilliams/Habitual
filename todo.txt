@@ -1,0 +1,13 @@
+
+persistant storage SQL
+enter key adds item
+Tab to show completed items
+Reminders
+Requeueing
+-remove home tab-
+add analytics tab
+Calendar habit completion view
+Convert tasks to tree based
+
+
+Move ^ into app storage

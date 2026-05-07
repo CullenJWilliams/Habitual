@@ -19,5 +19,6 @@ namespace Habitual
         }
 
         public DateTime? CompletedOn { get; set; }
+        public DateTime CreatedOn {get;set;} = DateTime.Now;
     }
 }
