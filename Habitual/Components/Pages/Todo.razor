@@ -5,11 +5,11 @@
 <h1>Todo</h1>
 
 <ul>
-    @foreach (var todoList in todoLists)
+    @foreach (var item in todoLists)
     {
-        <li> @todoList.Key
+        <li> @item.Title
             <ul>
-                @foreach (var todo in todoList.Value.Items)
+                @foreach (var todo in item.IncompeteChildren)
                 {
                     <li>
                         <input type="checkbox" @bind="todo.Completed" />
@@ -21,24 +21,32 @@
         </li>
     }
 </ul>
-<input placeholder="something to do" @bind="newTodo" />
-<input placeholder="the list" @bind="selectedListName" />
+<input placeholder="something to do" @bind="todoTitle" />
 <button @onclick="AddTodo">Add</button>
 
 @code {
-    private string? newTodo;
-    private string selectedListName = string.Empty;
+    private string? todoTitle;
+    private TodoItem? selectedItem = null;
     private static ListProvider listProvider = ListProvider.GetListProvider();
 
-    private  Dictionary<string, TodoList> todoLists = listProvider.GetAllLists();
+    private  List<TodoItem> todoLists = listProvider.GetAllItems();
 
     private void AddTodo()
     {
-        if (!string.IsNullOrWhiteSpace(newTodo))
+        if (!string.IsNullOrWhiteSpace(todoTitle))
         {
-            var list = listProvider.GetList(selectedListName);
-            list.Items.Add(new TodoItem { Title = newTodo });
-            newTodo = string.Empty;
+            var newTodo = new TodoItem() { Title = todoTitle };
+
+            todoTitle = string.Empty;
+            if (selectedItem is not null){
+                selectedItem.IncompeteChildren.Add(newTodo);
+            }
+            else
+            {
+                listProvider.AddTopLevel(newTodo);
+                selectedItem=newTodo;
+
+            }
         }
     }
     // TODO create new list

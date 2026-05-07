@@ -7,7 +7,8 @@ Requeueing
 -remove home tab-
 add analytics tab
 Calendar habit completion view
-Convert tasks to tree based
+-Convert tasks to tree based-
+Make Items selectable
 
 
 Move ^ into app storage

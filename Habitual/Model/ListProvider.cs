@@ -6,6 +6,7 @@ namespace Habitual
     public class ListProvider
     {
         private Dictionary<string, TodoList> todoLists = [];
+        private List<TodoItem> todoItems = [];
 
         public static ListProvider GetListProvider()
         {
@@ -17,6 +18,11 @@ namespace Habitual
         public Dictionary<string, TodoList> GetAllLists()
         {
             return todoLists;
+        }
+
+        public List<TodoItem> GetAllItems()
+        {
+            return todoItems;
         }
 
         public TodoList GetList(string key)
@@ -38,6 +44,11 @@ namespace Habitual
         public void AddList(string key, TodoList list)
         {
             todoLists.Add(key, list);
+        }
+
+        public void AddTopLevel(TodoItem list)
+        {
+            todoItems.Add(list);
         }
     }
 }
