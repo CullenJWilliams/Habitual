@@ -9,6 +9,8 @@ add analytics tab
 Calendar habit completion view
 -Convert tasks to tree based-
 Make Items selectable
+Move item to complete when checked
+Make a "view all subtasks" page
 
 
 Move ^ into app storage

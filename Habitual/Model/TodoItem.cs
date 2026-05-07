@@ -26,8 +26,17 @@ namespace Habitual
         public string Notes { get; set; }
         public DateTime Reminder { get; set; }
 
+        public TodoItem Parent {get;set;}
+
         public List<TodoItem> IncompeteChildren {get;set;} = [];
         public List<TodoItem> CompleteChildren {get;set;} = [];
         public List<TodoItem> FailedChildren {get;set;} = [];
+
+        public void RemoveChild(TodoItem child)
+        {
+            // TODO error for removing complete child
+            // or non-exiting child
+            IncompeteChildren.Remove(child);
+        }
     }
 }
