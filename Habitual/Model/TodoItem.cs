@@ -21,9 +21,17 @@ namespace Habitual
         public DateTime? CompletedOn { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
-        // TODO make this class 
+        // TODO make this a class 
+        /// <summary>
+        /// Provides rules for spawning duplicate tasks
+        /// OnCompletionImmediate
+        /// Transfer to different list?
+        /// TimeFromCompletion
+        /// OnDate
+        /// </summary>
         public string Renew { get; set; }
         public string Notes { get; set; }
+
         public DateTime Reminder { get; set; }
 
         public TodoItem Parent {get;set;}

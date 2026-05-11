@@ -2,16 +2,18 @@
 @rendermode InteractiveServer
 
 <PageTitle>Todo</PageTitle>
-<h1>Todo</h1>
+<h1 @onclick="ClearSelection">Todo</h1>
 
+<!--TODO tree traversal with truncation for page length -->
 <ul>
-    @foreach (var item in todoLists)
+    @foreach (TodoItem item in todoLists)
     {
-        <li> @item.Title
+        <li>
+             @item.Title
             <ul>
                 @foreach (var todo in item.IncompeteChildren)
                 {
-                    <li>
+                    <li @onclick="(()=>OnItemClicked(todo))">
                         <input type="checkbox" @bind="todo.Completed" />
                         <input @bind="@todo.Title" />
                         @todo.CompletedOn
@@ -21,15 +23,24 @@
         </li>
     }
 </ul>
-<input placeholder="something to do" @bind="todoTitle" />
-<button @onclick="AddTodo">Add</button>
+
+<form @onsubmit="Enter">
+    <input placeholder="something to do" @bind="todoTitle" />
+    <button @onclick="AddTodo">Add</button>
+</form>
 
 @code {
     private string? todoTitle;
     private TodoItem? selectedItem = null;
     private static ListProvider listProvider = ListProvider.GetListProvider();
 
+    // TODO make this an actual list with a root object
     private  List<TodoItem> todoLists = listProvider.GetAllItems();
+
+    public void Enter()
+    {
+        AddTodo();
+    }
 
     private void AddTodo()
     {
@@ -49,8 +60,17 @@
             }
         }
     }
-    // TODO create new list
+
     // TODO better list selection
     // TODO data retention
+    private void OnItemClicked(TodoItem item)
+    {
+        selectedItem = item;
+    }
 
+    private void ClearSelection(MouseEventArgs args)
+    {
+        // TODO this should be tied to the root
+        selectedItem=null;
+    }
 }
