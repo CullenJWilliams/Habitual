@@ -5,7 +5,7 @@ namespace Habitual;
 
 public class ListProvider
 {
-    private readonly List<TodoItem> todoItems = [];
+    private readonly TodoItem todoItems = new();
 
     public static ListProvider GetListProvider()
     {
@@ -15,14 +15,14 @@ public class ListProvider
 
     private static ListProvider? _provider = null;
 
-    public List<TodoItem> GetAllItems()
+    public TodoItem GetRoot()
     {
         return todoItems;
     }
 
     public void AddTopLevel(TodoItem list)
     {
-        todoItems.Add(list);
+        todoItems.IncompeteChildren.Add(list);
     }
 
     public void MoveItem(TodoItem target, TodoItem destination)
@@ -32,7 +32,6 @@ public class ListProvider
 
 
         // remove from TopLevel
-        todoItems.Remove(target);
         // remove from parent
         target.Parent.RemoveChild(target);
 

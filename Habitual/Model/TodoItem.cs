@@ -12,6 +12,7 @@ namespace Habitual
             set
             {
                 if (CompletedOn is null)
+                    // TODO throw if incomplete children
                     CompletedOn = DateTime.Now;
                 else
                     CompletedOn = null;
@@ -19,6 +20,7 @@ namespace Habitual
         }
 
         public DateTime? CompletedOn { get; set; }
+
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         // TODO make this a class 

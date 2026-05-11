@@ -6,14 +6,14 @@
 
 <!--TODO tree traversal with truncation for page length -->
 <ul>
-    @foreach (TodoItem item in todoLists)
+    @foreach (TodoItem item in todoRoot.IncompeteChildren)
     {
-        <li>
+        <li @onclick="(()=>OnItemClicked(item))" @onclick:stopPropagation="true">
              @item.Title
             <ul>
                 @foreach (var todo in item.IncompeteChildren)
                 {
-                    <li @onclick="(()=>OnItemClicked(todo))">
+                    <li @onclick="(()=>OnItemClicked(todo))" @onclick:stopPropagation="true">
                         <input type="checkbox" @bind="todo.Completed" />
                         <input @bind="@todo.Title" />
                         @todo.CompletedOn
@@ -35,7 +35,7 @@
     private static ListProvider listProvider = ListProvider.GetListProvider();
 
     // TODO make this an actual list with a root object
-    private  List<TodoItem> todoLists = listProvider.GetAllItems();
+    private  TodoItem todoRoot = listProvider.GetRoot();
 
     public void Enter()
     {
